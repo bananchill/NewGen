@@ -1,0 +1,24 @@
+.mode__switch {
+
+  display: flex;
+  flex-direction: column;
+
+  .paragraphs__bacon, .sentences__bacon {
+    padding: 0.5rem;
+
+    & .title {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .user__choose {
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+
+    .button_choose {
+
+    }
+  }
+
+}

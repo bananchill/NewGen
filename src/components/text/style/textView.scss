@@ -1,0 +1,27 @@
+.content__Elements {
+  margin: 0 10% 0 10%;
+
+  .view__input__text {
+    word-wrap: break-word;
+
+    .text__bacon {
+      margin-top: 5rem;
+      font-size: 24px;
+    }
+  }
+
+  .green {
+    background: #5bc538;
+  }
+
+  .red {
+    background: #F36747;
+
+  }
+
+  .green, .red {
+    padding: 0.1rem;
+    border-radius: 0.1rem;
+    color: white;
+  }
+}

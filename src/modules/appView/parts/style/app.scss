@@ -1,0 +1,29 @@
+.app {
+  margin-top: 1rem;
+
+  .input__text {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+
+  .text__reload {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .text__info {
+    display: flex;
+
+    .info, .settings {
+      padding: 1rem 0 0 1rem;
+    }
+
+    .settings {
+
+    }
+  }
+
+}
