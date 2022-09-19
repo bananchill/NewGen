@@ -10,16 +10,16 @@
     }
   }
 
-  .green {
+  .correct {
     background: #5bc538;
   }
 
-  .red {
+  .incorrect {
     background: #F36747;
 
   }
 
-  .green, .red {
+  .current, .incorrect {
     padding: 0.1rem;
     border-radius: 0.1rem;
     color: white;

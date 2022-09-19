@@ -16,7 +16,7 @@
            v-for="(item, index) in baconText"
            :key="index"
            :class="{
-             'green' : index === currentChar,
+             'correct' : index === currentCharIndex,
            }"
        >
           {{ item }}
@@ -27,6 +27,13 @@
 </template>
 
 <script>
+
+const codeSpecKey = ['ControlLeft', 'ControlRight',
+  'ShiftLeft', 'ShiftRight', 'Insert', 'Home', 'PageUp',
+  'AltLeft', 'AltRight', 'Delete', 'End', 'PageDown',
+  'MetaLeft', 'ContextMenu', 'CapsLock', 'Tab', 'Escape',
+    'Backspace', 'Delete', 'Space'
+]
 
 
 export default {
@@ -39,7 +46,7 @@ export default {
   },
   data() {
     return {
-      currentChar: 0,
+      currentCharIndex: 0,
       accuracy: 0,
       countClick: 0,
     }
@@ -47,6 +54,15 @@ export default {
   emits: [
     'update:infoUserClick'
   ],
+  watch: {
+    baconText(oldText, newText) {
+      if (oldText !== newText) {
+        this.currentCharIndex = 0;
+        this.accuracy = 0;
+        this.countClick = 0;
+      }
+    }
+  },
   mounted() {
     document.addEventListener('keydown', this.handleKeyDown);
   },
@@ -59,22 +75,22 @@ export default {
         case 'Backspace':
           this.correctCharClass();
           break;
-        default:
-          this.equalInputChar(e)
+        case 'Delete':
+          this.correctCharClass();
+          break;
       }
+      this.equalInputChar(e)
     },
 
     nextCurrentChar() {
-      this.currentChar++;
+      this.currentCharIndex++;
     },
     equalInputChar(event) {
-      const currentChar = this.currentChar
-      if (event.key === ' ')
+      const currentChar = this.currentCharIndex
+      if (codeSpecKey.indexOf(event.code) !== -1)
         event.preventDefault();
 
-      if (!(event.ctrlKey || event.code === 'ShiftLeft' || event.altKey ||
-          event.code === 'CapsLock' || event.code === 'Tab' ||
-          event.code === 'Escape' || event.code === 'Enter')) {
+      if (!(codeSpecKey.indexOf(event.code) !== -1) || event.code ===  'Space') {
         this.countClick++;
         if (event.key === this.baconText[currentChar]) {
           this.nextCurrentChar();
@@ -87,12 +103,12 @@ export default {
 
     },
     correctCharClass() {
-      const spanChar = this.$refs.char_in_text[this.currentChar]
-      spanChar.className = spanChar.className.replace(" red", " green")
+      const spanChar = this.$refs.char_in_text[this.currentCharIndex]
+      spanChar.className = spanChar.className.replace(" incorrect", " correct")
     },
     errorCharClass() {
-      const spanChar = this.$refs.char_in_text[this.currentChar]
-      spanChar.className = spanChar.className.replace(" green", " red")
+      const spanChar = this.$refs.char_in_text[this.currentCharIndex]
+      spanChar.className = spanChar.className.replace(" correct", " incorrect")
     }
   }
 }

@@ -2,7 +2,6 @@
   <div class="app">
     <div class="input__text" v-if="baconText">
       <TextView
-          :key="baconText"
           :baconText="baconText"
           v-model:infoUserClick="infoUserClick"
       />
@@ -14,12 +13,12 @@
     </div>
     <div class="text__info">
       <div class="info">
-        <Info :key="baconText"
-            v-model:infoUserClick="infoUserClick"/>
+        <Info
+            :key="baconText"
+          :infoUserClick="infoUserClick"/>
       </div>
       <div class="settings">
         <ModeSwitch
-            :key="baconText"
             v-model:textCharacter="textCharacter"/>
       </div>
     </div>
@@ -72,16 +71,16 @@ export default {
     async getBacon() {
       try {
         const response = await this.baconApi.getInfoAsync(this.textCharacter)
-        await this.getTextChar(response)
+         this.getTextChar(response)
       } catch (e) {
         console.error(`get text failed ${e.message}`)
       }
     },
-    async getTextChar(text) {
+     getTextChar(text) {
       let charMass = [];
       text.forEach(sentence => {
         const sentMass = sentence.replace('  ', ' ').split('')
-        charMass = [...charMass, ...sentMass]
+        charMass.push(...sentMass)
       })
       this.baconText = charMass
     },

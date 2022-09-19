@@ -4,14 +4,14 @@
       <span class="title"> Количество предложений </span>
       <input
           type="number"
-          onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+          pattern="0-9"
           class="sentences"
           v-model="sentences"
       >
     </div>
     <div class="user__choose">
       <button class="button__choose"
-              @click="toggleData"
+              @click="applyData"
       >
         Применить
       </button>
@@ -37,9 +37,9 @@ export default {
   methods: {
     handleKeyDown(e){
       if(e.key === 'Enter')
-        this.toggleData()
+        this.applyData()
     },
-    toggleData() {
+    applyData() {
       this.$emit('update:textCharacter', {sentence : this.sentences})
     }
   }

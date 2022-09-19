@@ -34,15 +34,15 @@ export default class Log {
     return new Proxy(res, handler);
   }
 
-  elapsed() {
-    let totalSeconds = sw.getDiff() / 1000;
-    let minutes = Math.floor(totalSeconds / 60);
-    let sec = totalSeconds - minutes * 60;
-    if (minutes > 0)
-      return `${minutes}:${sec.toFixed(2)}`;
-
-    return `${sec.toFixed(2)}`;
-  }
+  // elapsed() {
+  //   let totalSeconds = sw.getDiff() / 1000;
+  //   let minutes = Math.floor(totalSeconds / 60);
+  //   let sec = totalSeconds - minutes * 60;
+  //   if (minutes > 0)
+  //     return `${minutes}:${sec.toFixed(2)}`;
+  //
+  //   return `${sec.toFixed(2)}`;
+  // }
 
   colorify(_msg){
     let msg;
@@ -58,31 +58,31 @@ export default class Log {
     return msg;
   }
   groupCollapsed(_desc){
-    console.groupCollapsed (`${this.elapsed()} | ${this.p_scope} | ${this.colorify(_desc)}`);
+    console.groupCollapsed (`${sw.getElapsed()} | ${this.p_scope} | ${this.colorify(_desc)}`);
     return ()=>console.groupEnd();
   }
   group(_desc){
-    console.group (`${this.elapsed()} | ${this.p_scope} | ${this.colorify(_desc)}`);
+    console.group (`${sw.getElapsed()} | ${this.p_scope} | ${this.colorify(_desc)}`);
     return ()=>console.groupEnd();
   }
   i(_msg) {
     if(userOSUsesDarkScheme)
-      console.info(`${this.elapsed()} | \x1b[33m${this.p_scope}\x1b[37m | ${this.colorify(_msg)}`);
+      console.info(`${sw.getElapsed()} | \x1b[33m${this.p_scope}\x1b[37m | ${this.colorify(_msg)}`);
     else
-      console.info(`${this.elapsed()} | \x1b[103m${this.p_scope}\x1b[30m | ${this.colorify(_msg)}`);
+      console.info(`${sw.getElapsed()} | \x1b[103m${this.p_scope}\x1b[30m | ${this.colorify(_msg)}`);
   }
 
   e(_msg) {
     if(userOSUsesDarkScheme)
-      console.error(`${this.elapsed()} | \x1b[33m$${this.p_scope}\x1b[37m | ${this.colorify(_msg)}`);
+      console.error(`${sw.getElapsed()} | \x1b[33m$${this.p_scope}\x1b[37m | ${this.colorify(_msg)}`);
     else
-      console.error(`${this.elapsed()} | \x1b[103m${this.p_scope}\x1b[30m | ${this.colorify(_msg)}`);
+      console.error(`${sw.getElapsed()} | \x1b[103m${this.p_scope}\x1b[30m | ${this.colorify(_msg)}`);
   }
 
   w(_msg) {
     if(userOSUsesDarkScheme)
-      console.warn(`${this.elapsed()} | \x1b[33m${this.p_scope}\x1b[37m | ${this.colorify(_msg)}`);
+      console.warn(`${sw.getElapsed()} | \x1b[33m${this.p_scope}\x1b[37m | ${this.colorify(_msg)}`);
     else
-      console.warn(`${this.elapsed()} | \x1b[103m${this.p_scope}\x1b[30m | ${this.colorify(_msg)}`);
+      console.warn(`${sw.getElapsed()} | \x1b[103m${this.p_scope}\x1b[30m | ${this.colorify(_msg)}`);
   }
 }
